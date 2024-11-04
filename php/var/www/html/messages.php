@@ -101,7 +101,7 @@
                 const cellA = a.cells[columnIndex].textContent.trim();
                 const cellB = b.cells[columnIndex].textContent.trim();
 
-                if (columnIndex === 5) { // Сортировка по дате
+                if (columnIndex === 6) { // Сортировка по дате
                     return isAscending ? new Date(cellA) - new Date(cellB) : new Date(cellB) - new Date(cellA);
                 } else { // Сортировка по тексту
                     return isAscending ? cellA.localeCompare(cellB) : cellB.localeCompare(cellA);

@@ -85,7 +85,7 @@
         // Вывод сообщений в виде таблицы
         echo "<h2>Все сообщения</h2>";
         echo "<table id='messagesTable'>";
-        echo "<thead><tr><th onclick='sortTable(1)'>Имя пользователя</th><th onclick='sortTable(0)'>Email</th><th onclick='sortTable(3)'>Сообщение</th><th>Отправлено</th></tr></thead>";
+        echo "<thead><tr><th onclick='sortTable(1)'>Имя пользователя</th><th onclick='sortTable(0)'>Email</th><th>Сообщение</th><th onclick='sortTable(3)'>Отправлено</th></tr></thead>";
         echo "<tbody>";
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             echo "<tr>";
