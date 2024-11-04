@@ -5,5 +5,7 @@ CREATE TABLE IF NOT EXISTS messages (
     email VARCHAR(255) NOT NULL,
     username VARCHAR(50) NOT NULL,
     message TEXT NOT NULL,
+    user_ip VARCHAR(45) NOT NULL,
+    user_browser VARCHAR(255) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

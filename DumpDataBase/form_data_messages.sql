@@ -27,9 +27,11 @@ CREATE TABLE `messages` (
   `email` varchar(255) NOT NULL,
   `username` varchar(50) NOT NULL,
   `message` text NOT NULL,
+  `user_ip` varchar(45) NOT NULL,
+  `user_browser` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -38,7 +40,7 @@ CREATE TABLE `messages` (
 
 LOCK TABLES `messages` WRITE;
 /*!40000 ALTER TABLE `messages` DISABLE KEYS */;
-INSERT INTO `messages` VALUES (1,'11@mail.ru','123','3333333','2024-11-04 01:33:04'),(2,'222@mail.ru','1233333','1111','2024-11-04 01:33:04');
+INSERT INTO `messages` VALUES (1,'123123123@mail.trash','trash','tester','185.164.138.168','Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:127.0) Gecko/20100101 Firefox/127.0','2024-11-04 02:22:02');
 /*!40000 ALTER TABLE `messages` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -51,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-11-04  5:04:27
+-- Dump completed on 2024-11-04  5:32:15

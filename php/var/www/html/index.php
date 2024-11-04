@@ -33,6 +33,10 @@
             <input type="text" id="captcha-input" name="captcha" required>
             <input type="hidden" id="captcha-answer"><br><br> <!-- Скрытый правильный ответ капчи -->
 
+            <!-- Скрытые поля для IP и браузера -->
+            <input type="hidden" id="user-ip" name="user_ip">
+            <input type="hidden" id="user-browser" name="user_browser">
+
             <button type="submit" name="submit">Отправить</button>
         </div>
     </form>
@@ -45,16 +49,20 @@
          $email = $_POST['email'];
          $username = $_POST['username'];
          $message = $_POST['message'];
+         $user_ip = $_POST['user_ip'];
+         $user_browser = $_POST['user_browser'];
 
          // SQL-запрос на вставку данных
-         $sql = "INSERT INTO messages (email, username, message) VALUES (:email, :username, :message)";
+         $sql = "INSERT INTO messages (email, username, message, user_ip, user_browser) VALUES (:email, :username, :message, :user_ip, :user_browser)";
          $stmt = $pdo->prepare($sql);
 
          // Выполнение запроса с передачей параметров
          $stmt->execute([
              ':email' => $email,
              ':username' => $username,
-             ':message' => $message
+             ':message' => $message,
+             ':user_ip' => $user_ip,
+             ':user_browser' => $user_browser
          ]);
 
          echo "<p>Сообщение успешно отправлено!</p>";
@@ -86,13 +94,23 @@
             const userAnswer = document.getElementById('captcha-input').value;
             const correctAnswer = document.getElementById('captcha-answer').value;
             if (userAnswer !== correctAnswer) {
-                event.preventDefault(); // отменяем отправку формы, если ответ неверный
+                event.preventDefault(); // Отменяем отправку формы, если ответ неверный
                 alert("Капча введена неверно. Попробуйте снова.");
                 generateCaptcha(); // Генерируем новую капчу
                 return false;
             }
             return true;
         }
+
+        // Запись информации о браузере
+        document.getElementById('user-browser').value = navigator.userAgent;
+
+        // Запрос на получение IP-адреса через API
+        fetch('https://api.ipify.org?format=json')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('user-ip').value = data.ip;
+            });
 
         // Инициализация капчи при загрузке страницы
         window.onload = generateCaptcha;
