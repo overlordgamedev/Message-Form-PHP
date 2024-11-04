@@ -31,7 +31,7 @@ CREATE TABLE `messages` (
   `user_browser` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,7 +40,7 @@ CREATE TABLE `messages` (
 
 LOCK TABLES `messages` WRITE;
 /*!40000 ALTER TABLE `messages` DISABLE KEYS */;
-INSERT INTO `messages` VALUES (1,'123123123@mail.trash','trash','tester','185.164.138.168','Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:127.0) Gecko/20100101 Firefox/127.0','2024-11-04 02:22:02');
+INSERT INTO `messages` VALUES (1,'1@mail.trash','trash1','tester1','185.164.138.168','Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:127.0) Gecko/20100101 Firefox/127.0','2024-11-04 01:22:02'),(2,'2@mail.trash','trash2','tester2','185.164.138.168','Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:127.0) Gecko/20100101 Firefox/127.0','2024-11-04 02:22:02'),(3,'3@mail.trash','trash3','tester3','185.164.138.168','Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:127.0) Gecko/20100101 Firefox/127.0','2024-11-04 02:22:03'),(4,'4@mail.trash','trash4','tester4','185.164.138.168','Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:127.0) Gecko/20100101 Firefox/127.0','2024-11-04 04:22:03'),(5,'5@mail.trash','trash5','tester5','185.164.138.168','Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:127.0) Gecko/20100101 Firefox/127.0','2024-11-04 04:52:03'),(6,'6@mail.trash','trash6','tester6','185.164.138.168','Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:127.0) Gecko/20100101 Firefox/127.0','2024-11-04 06:52:03'),(7,'7@mail.trash','trash7','tester7','185.164.138.168','Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:127.0) Gecko/20100101 Firefox/127.0','2024-11-04 06:57:03');
 /*!40000 ALTER TABLE `messages` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -53,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-11-04  5:32:15
+-- Dump completed on 2024-11-04  6:37:56
