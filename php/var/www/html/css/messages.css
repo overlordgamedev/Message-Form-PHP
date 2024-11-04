@@ -10,32 +10,39 @@ h2 {
     color: #333;
 }
 
-ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-li {
-    background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    padding: 15px;
-    margin-bottom: 15px;
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px auto;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-strong {
-    color: #007BFF;
+th, td {
+    padding: 12px;
+    text-align: left;
+    border: 2px solid #4a4a4a;
 }
 
-em {
-    color: #888;
+th {
+    background-color: #007BFF;
+    color: white;
+    cursor: pointer;
 }
 
-hr {
-    border: none;
-    border-top: 1px solid #ddd;
-    margin: 15px 0;
+th:hover {
+    background-color: #0056b3;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tr{
+    font-size: 12px
+}
+
+tr:hover {
+    background-color: #f1f1f1;
 }
 
 p {
@@ -43,13 +50,26 @@ p {
     color: #666;
 }
 
-/* Дополнительные стили для адаптивности */
-@media (max-width: 600px) {
-    li {
-        padding: 10px;
-    }
-
-    h2 {
-        font-size: 1.5em;
-    }
+button {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
+
+button:hover {
+    background-color: #ff1a1a;
+}
+
+button:focus {
+    outline: none;
+}
+
+button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+

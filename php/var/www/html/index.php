@@ -42,34 +42,105 @@
     </form>
 
     <?php
-     if (isset($_POST['submit'])) {
-         include 'db.php'; // Подключаемся к базе данных
+    include 'db.php'; // Подключаемся к базе данных
 
-         // Получаем данные из формы
-         $email = $_POST['email'];
-         $username = $_POST['username'];
-         $message = $_POST['message'];
-         $user_ip = $_POST['user_ip'];
-         $user_browser = $_POST['user_browser'];
+    if (isset($_POST['submit'])) {
+        // Получаем данные из формы
+        $email = $_POST['email'];
+        $username = $_POST['username'];
+        $message = $_POST['message'];
+        $user_ip = $_POST['user_ip'];
+        $user_browser = $_POST['user_browser'];
 
-         // SQL-запрос на вставку данных
-         $sql = "INSERT INTO messages (email, username, message, user_ip, user_browser) VALUES (:email, :username, :message, :user_ip, :user_browser)";
-         $stmt = $pdo->prepare($sql);
+        // SQL-запрос на вставку данных
+        $sql = "INSERT INTO messages (email, username, message, user_ip, user_browser) VALUES (:email, :username, :message, :user_ip, :user_browser)";
+        $stmt = $pdo->prepare($sql);
 
-         // Выполнение запроса с передачей параметров
-         $stmt->execute([
-             ':email' => $email,
-             ':username' => $username,
-             ':message' => $message,
-             ':user_ip' => $user_ip,
-             ':user_browser' => $user_browser
-         ]);
+        // Выполнение запроса с передачей параметров
+        $stmt->execute([
+            ':email' => $email,
+            ':username' => $username,
+            ':message' => $message,
+            ':user_ip' => $user_ip,
+            ':user_browser' => $user_browser
+        ]);
 
-         echo "<p>Сообщение успешно отправлено!</p>";
-     }
+        echo "<p>Сообщение успешно отправлено!</p>";
+    }
+
+    // Пагинация
+    $limit = 5; // Количество сообщений на странице
+    $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+    $offset = ($page - 1) * $limit;
+
+    // Запрос для получения сообщений с пагинацией
+    $sql = "SELECT email, username, message, created_at, user_ip, user_browser FROM messages ORDER BY created_at DESC LIMIT :limit OFFSET :offset";
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+    $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+    $stmt->execute();
+
+    // Проверка наличия сообщений
+    if ($stmt->rowCount() > 0) {
+        // Вывод сообщений в виде таблицы
+        echo "<h2>Все сообщения</h2>";
+        echo "<table id='messagesTable'>";
+        echo "<thead><tr><th onclick='sortTable(1)'>Имя пользователя</th><th onclick='sortTable(0)'>Email</th><th onclick='sortTable(3)'>Сообщение</th><th>Отправлено</th></tr></thead>";
+        echo "<tbody>";
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            echo "<tr>";
+            echo "<td>" . htmlspecialchars($row['username']) . "</td>";
+            echo "<td>" . htmlspecialchars($row['email']) . "</td>";
+            echo "<td>" . nl2br(htmlspecialchars($row['message'])) . "</td>";
+            echo "<td>" . htmlspecialchars($row['created_at']) . "</td>";
+            echo "</tr>";
+        }
+        echo "</tbody>";
+        echo "</table>";
+
+        // Получение общего количества сообщений для пагинации
+        $countSql = "SELECT COUNT(*) FROM messages";
+        $countStmt = $pdo->query($countSql);
+        $totalMessages = $countStmt->fetchColumn();
+        $totalPages = ceil($totalMessages / $limit);
+
+        // Вывод навигации по страницам
+        echo "<div class='pagination'>";
+        for ($i = 1; $i <= $totalPages; $i++) {
+            echo "<a href='?page=$i'>$i</a> ";
+        }
+        echo "</div>";
+    } else {
+        echo "<p>Сообщений пока нет.</p>";
+    }
     ?>
 
     <script>
+        // Функция для сортировки таблицы
+        let sortOrder = {};
+        
+        function sortTable(columnIndex) {
+            const table = document.getElementById('messagesTable');
+            const rows = Array.from(table.querySelectorAll("tbody tr"));
+
+            const isAscending = sortOrder[columnIndex] === 'asc' ? false : true;
+            sortOrder[columnIndex] = isAscending ? 'asc' : 'desc';
+
+            rows.sort((a, b) => {
+                const cellA = a.cells[columnIndex].textContent.trim();
+                const cellB = b.cells[columnIndex].textContent.trim();
+
+                if (columnIndex === 3) { // Сортировка по дате
+                    return isAscending ? new Date(cellA) - new Date(cellB) : new Date(cellB) - new Date(cellA);
+                } else { // Сортировка по тексту
+                    return isAscending ? cellA.localeCompare(cellB) : cellB.localeCompare(cellA);
+                }
+            });
+
+            const tbody = table.querySelector("tbody");
+            rows.forEach(row => tbody.appendChild(row));
+        }
+
         // Функция для генерации случайного текста капчи
         function generateCaptcha() {
             const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';

@@ -8,9 +8,6 @@ body {
     align-items: center;
 }
 
-h2 {
-    color: #333;
-}
 
 .main_block {
     background: #fff;
@@ -63,3 +60,54 @@ canvas {
     width: 70%;
     z-index: 2;
 }
+
+h2 {
+    text-align: center;
+    color: #333;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px auto;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 2;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border: 2px solid #4a4a4a;
+}
+
+th {
+    background-color: #007BFF;
+    color: white;
+    cursor: pointer;
+}
+
+th:hover {
+    background-color: #0056b3;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tr{
+    font-size: 12px
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}
+
+p {
+    text-align: center;
+    color: #666;
+}
+
+.pagination{
+    z-index: 2;
+}
+
